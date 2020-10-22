@@ -1,19 +1,23 @@
 package corebase.helper;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.relevantcodes.extentreports.ExtentTest;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 
 public class Base {
 
@@ -70,13 +74,133 @@ public class Base {
 		return dateFormat.format(date);
 	}
 
-	public void checkforElement(WebElement element, String elementName) {
+	public void ScreenCapture(ExtentTest test, String elementName, String ElementStatus) {
 
-		if (element.isDisplayed()) {
+		try {
 
-			System.out.println("");
+			if (ElementStatus.toLowerCase().equalsIgnoreCase("pass")) {
+
+				test.log(Status.PASS,
+						"Snapshot below: " + test.addScreenCaptureFromPath(addScreenshot(elementName, "Pass")));
+
+			} else if (ElementStatus.toLowerCase().equalsIgnoreCase("fail")) {
+
+				test.log(Status.FAIL,
+						"Snapshot below: " + test.addScreenCaptureFromPath(addScreenshot(elementName, "Fail")));
+
+			}
+
+		} catch (Exception io) {
 
 		}
 
 	}
+	
+	public WebElement waitForExpectedCondition(WebElement element)
+	{
+		try
+		{
+			wait.until(ExpectedConditions.visibilityOf(element));
+			
+			wait.until(ExpectedConditions.elementToBeClickable(element));
+		}
+		catch(Exception ex)
+		{
+			try 
+			{
+//				throw new Exception("Failed to find the element : " +ElementName);
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		return element;
+	}
+
+	public boolean checkforElement(WebElement element, String elementName) {
+
+		boolean ElementDisplayed = false;
+
+		try {
+			if (element.isDisplayed() && element.isEnabled()) {
+				ElementDisplayed = true;
+
+				System.out.println(element + "is displayed");
+
+				test.log(Status.PASS, "Able to find the " + elementName + " in the Page");
+
+				ScreenCapture(test, elementName, "Pass");
+			}
+		} catch (ElementClickInterceptedException e) {
+			ElementDisplayed = false;
+
+			test.log(Status.FAIL, "Failed to find the " + elementName + " in the Page");
+
+			ScreenCapture(test, elementName, "Fail");
+
+			System.err.println("Error verifying the element!!");
+		}
+		return ElementDisplayed;
+	}
+
+	public void inputValue(WebElement element, String value, String elementName) {
+
+		try {
+			if (element.isDisplayed() && element.isEnabled()) {
+
+				element.sendKeys(value);
+
+				System.out.println(value + "entered sucessfully");
+
+				test.log(Status.PASS, "Successfully entered " + value + " in the Page");
+
+				ScreenCapture(test, elementName, "Pass");
+			}
+		} catch (Exception e) {
+
+			test.log(Status.FAIL, "Failed to enter " + value + " in the Page");
+
+			ScreenCapture(test, value, "Fail");
+
+			System.err.println("Error verifying and enterving the Value");
+		}
+	}
+
+	public void ClickOnElement(WebElement element, String elementName) {
+
+		try {
+			if (element.isDisplayed() && element.isEnabled()) {
+
+				element.click();
+
+				System.out.println(element + "Element clicked successfully");
+
+				test.log(Status.PASS, "Successfully entered " + element + " in the Page");
+
+				ScreenCapture(test, elementName, "Pass");
+			}
+		} catch (Exception e) {
+
+			test.log(Status.FAIL, "Failed to enter " + element + " in the Page");
+
+			ScreenCapture(test, elementName, "Fail");
+
+			System.err.println("Error clicking the Value");
+		}
+	}
+	
+	public static void LaunchURL(String URL) {
+		
+		try {
+			driver.navigate().to(URL);
+			
+			System.out.println(URL + "URL successfully Launched");
+
+		} catch (Exception e) {
+			
+			System.err.println("Error clicking the Value");
+		}
+	}
+
 }
