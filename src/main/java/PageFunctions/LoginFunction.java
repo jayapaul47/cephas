@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import PageObjects.SelfcareLoginPage;
-import corebase.helper.Base;
+import helper.Base;
 
 public class LoginFunction extends SelfcareLoginPage{
 	
@@ -17,6 +17,8 @@ public class LoginFunction extends SelfcareLoginPage{
 	public void login() {
 		
 		try {
+			
+			
 			Base.LaunchURL("https://selfcare.yes.my/myselfcare/doLogin.do");
 			
 			checkforElement(getName(), "usernamefield");

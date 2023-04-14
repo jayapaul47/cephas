@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Testing Suit">
+
+<!-- 	<listeners> -->
+<!-- 		<listener class-name="com.qa.ExtentReportListener.ExtentReporterNG" /> -->
+<!-- 	</listeners> -->
+
+
+	<test name="Testing Title">
+		<classes>
+			<class name="TestCases.LoginTestCase"></class>
+		</classes>
+	</test>
+</suite>

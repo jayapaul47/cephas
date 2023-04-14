@@ -5,8 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import corebase.helper.Base;
-
+import helper.Base;
 public class SelfcareLoginPage extends Base {
 	
 	public SelfcareLoginPage(WebDriver driver) {
