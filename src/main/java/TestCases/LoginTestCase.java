@@ -16,7 +16,7 @@ public class LoginTestCase extends LoginFunction {
 
 	@Test
 	public void loginTC() {
-		
+		//Test checkin
 		login();
 
 	}
