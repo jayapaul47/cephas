@@ -1,0 +1,7 @@
+PageObjects\SelfcareLoginPage.class
+PageFunctions\LoginFunction.class
+corebase\Resources\PropertiesHelper.class
+corebase\helper\ApplicationHelper.class
+TestCases\LoginTestCase.class
+corebase\helper\Base.class
+corebase\reports\ExtentReport.class
