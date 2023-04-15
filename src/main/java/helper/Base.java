@@ -18,7 +18,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 
-public class Base {
+public class Base extends ApplicationHelper{
 
 	ExtentTest test;
 	static WebDriver driver;

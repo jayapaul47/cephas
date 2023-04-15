@@ -19,6 +19,8 @@ public class LoginFunction extends SelfcareLoginPage{
 		try {
 			
 			
+			
+			
 			Base.LaunchURL("https://selfcare.yes.my/myselfcare/doLogin.do");
 			
 			checkforElement(getName(), "usernamefield");
