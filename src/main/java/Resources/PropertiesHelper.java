@@ -14,7 +14,7 @@ public class PropertiesHelper {
 	public static String getProperties(String PropertyName)
 	{
 		try {
-			output = new FileInputStream(System.getProperty("user.dir") + "/src//main//java//corebase//Resources//config.properties");
+			output = new FileInputStream(System.getProperty("user.dir") + "/src//main//java//Resources//config.properties");
 	
 			// load a properties file
 			prop.load(output);

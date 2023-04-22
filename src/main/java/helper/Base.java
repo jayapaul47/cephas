@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import Resources.PropertiesHelper;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.OutputType;
@@ -25,10 +26,10 @@ public class Base extends ApplicationHelper{
 	public static String addScreenshot;
 	WebDriverWait wait;
 
-	public Base() {
-		PageFactory.initElements(driver, this);
-		wait = new WebDriverWait(driver, 90);
-
+	public Base(WebDriver _driver, ExtentTest _test) {
+		this.test = _test;
+		driver = _driver;
+		wait = new WebDriverWait(driver, Long.parseLong(PropertiesHelper.getProperties("WebDriverTimeout")));
 	}
 
 	public static String addScreenshot(String elementName, String TestCaseResult) {
@@ -93,28 +94,6 @@ public class Base extends ApplicationHelper{
 
 		}
 
-	}
-	
-	public WebElement waitForExpectedCondition(WebElement element)
-	{
-		try
-		{
-			wait.until(ExpectedConditions.visibilityOf(element));
-			
-			wait.until(ExpectedConditions.elementToBeClickable(element));
-		}
-		catch(Exception ex)
-		{
-			try 
-			{
-//				throw new Exception("Failed to find the element : " +ElementName);
-			} 
-			catch (Exception e) 
-			{
-				e.printStackTrace();
-			}
-		}
-		return element;
 	}
 
 	public boolean checkforElement(WebElement element, String elementName) {
@@ -185,19 +164,6 @@ public class Base extends ApplicationHelper{
 
 			ScreenCapture(test, elementName, "Fail");
 
-			System.err.println("Error clicking the Value");
-		}
-	}
-	
-	public static void LaunchURL(String URL) {
-		
-		try {
-			driver.navigate().to(URL);
-			
-			System.out.println(URL + "URL successfully Launched");
-
-		} catch (Exception e) {
-			
 			System.err.println("Error clicking the Value");
 		}
 	}

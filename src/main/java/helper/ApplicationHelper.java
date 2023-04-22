@@ -47,4 +47,14 @@ public class ApplicationHelper {
 		
 		return driver;
  	}
+
+	public void LaunchURL() {
+		driver.navigate().to(PropertiesHelper.getProperties("Applicationurl"));
+	}
+
+	public void closeBrowser() {
+		if (driver != null) {
+			driver.quit();
+		}
+	}
 }

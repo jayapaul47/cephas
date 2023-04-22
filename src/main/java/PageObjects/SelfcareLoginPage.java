@@ -1,15 +1,28 @@
 package PageObjects;
 
+import Resources.PropertiesHelper;
+import com.aventstack.extentreports.ExtentTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import helper.Base;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 public class SelfcareLoginPage extends Base {
+
+	WebDriver driver;
+	WebDriverWait wait;
+
+	ExtentTest test;
 	
-	public SelfcareLoginPage(WebDriver driver) {
-//        super(driver);
+	public SelfcareLoginPage(WebDriver _driver, ExtentTest _test) {
+		super(_driver, _test);
+		this.driver = _driver;
+		this.test = _test;
+		wait = new WebDriverWait(driver, Long.parseLong(PropertiesHelper.getProperties("WebDriverTimeout")));
         PageFactory.initElements(driver, this);
     }
 	
@@ -22,16 +35,21 @@ public class SelfcareLoginPage extends Base {
 	@FindBy(xpath = "(//*[@type='submit'])[3]")
 	private WebElement login;
 
-	public WebElement getName() {
-		return waitForExpectedCondition(name);
+	public void inputUserName(){
+		wait.until(ExpectedConditions.visibilityOf(name));
+
+		inputValue(name, "0186936180@yes.my","Username");
 	}
 
-	public WebElement getPassword() {
-		return waitForExpectedCondition(password);
+	public void inputPassword(){
+		wait.until(ExpectedConditions.visibilityOf(password));
+
+		inputValue(password, "Praisethelord","Username");
 	}
 
-	public WebElement getLogin() {
-		return waitForExpectedCondition(login);
+	public void clickonLogin() {
+		wait.until(ExpectedConditions.elementToBeClickable(login));
+
+		ClickOnElement(login, "Login");
 	}
-	
 }
