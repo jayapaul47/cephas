@@ -42,7 +42,7 @@ public class LoginTestCase {
 
 		login = new LoginFunction(driver,childTest);
 
-		login.login();
+		login.login(); //Login Method
 
 	}
 
